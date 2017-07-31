@@ -11,15 +11,26 @@ var CuratedContent = mongoose.model('CuratedContent',{
     minLength : 1,
     trim: true
   },
+  shortContentSubjectArea: {
+    type: String,
+    required: true,
+    minLength : 1,
+    trim: true
+  },
   contentType: {
     type: String,
     required: true,
     minLength : 1,
     trim: true
   },
-  contentData: {
+  contentDescription: {
     type: String,
     required: true,
+    minLength: 1,
+    trim: true
+  },
+  contentURL: {
+    type: String,
     minLength: 1,
     trim: true
   },
