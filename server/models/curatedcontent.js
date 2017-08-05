@@ -11,7 +11,8 @@ var CuratedContent = mongoose.model('CuratedContent',{
     minLength : 1,
     trim: true
   },
-  shortContentSubjectArea: {
+  //shortContentSubjectArea: {
+  contentSubjectAreaSubArea: {
     type: String,
     required: true,
     minLength : 1,
@@ -45,6 +46,10 @@ var CuratedContent = mongoose.model('CuratedContent',{
   recordedOn:{
     type: Date,
     default: Date.now
+  },
+  userRating:{
+    type: Number,
+    default:0
   }
 });
 
