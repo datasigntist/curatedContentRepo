@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var {mongoose} = require('./db/mongoose')
 var {CuratedContent} = require('./models/curatedcontent');
 var {UserData} = require('./models/userdata');
-var {UserRegistration} = require('./models/userregistration');
+//var {UserRegistration} = require('./models/userregistration');
 var {FeedbackData} = require('./models/feedbackdata');
 var {PointsData} = require('./models/pointsdata');
 var {LogData} = require('./models/logdata');
@@ -19,40 +19,40 @@ const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 
-app.post('/userRegistration', (req,res) => {
-  var userRegistration = new UserRegistration({
-    userName: req.body.userName
-  })
-
-  userRegistration.save().then((doc)=>{
-    res.send(doc);
-  }, (err)=>{
-    return res.status(400).send(err);
-  })
-});
-
-app.get('/userRegistration/:userName', (req,res) => {
-
-  var pUserName = req.params.userName;
-
-  UserRegistration.findOne({
-    userName: pUserName
-    },
-    (err, doc) => {
-
-      if (err)
-      {
-        return res.status(400).send();
-      }
-
-      if (!doc)
-      {
-        return res.status(404).send();
-      }
-
-      res.send(doc);
-  });
-});
+// app.post('/userRegistration', (req,res) => {
+//   var userRegistration = new UserRegistration({
+//     userName: req.body.userName
+//   })
+//
+//   userRegistration.save().then((doc)=>{
+//     res.send(doc);
+//   }, (err)=>{
+//     return res.status(400).send(err);
+//   })
+// });
+//
+// app.get('/userRegistration/:userName', (req,res) => {
+//
+//   var pUserName = req.params.userName;
+//
+//   UserRegistration.findOne({
+//     userName: pUserName
+//     },
+//     (err, doc) => {
+//
+//       if (err)
+//       {
+//         return res.status(400).send();
+//       }
+//
+//       if (!doc)
+//       {
+//         return res.status(404).send();
+//       }
+//
+//       res.send(doc);
+//   });
+// });
 
 // app.post('/userdata', (req,res) => {
 //   var userData = new UserData({
