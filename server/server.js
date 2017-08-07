@@ -11,6 +11,7 @@ var {UserData} = require('./models/userdata');
 var {FeedbackData} = require('./models/feedbackdata');
 var {PointsData} = require('./models/pointsdata');
 var {LogData} = require('./models/logdata');
+var {CustomMessage} = require('./models/custommessage');
 
 var app = express();
 
@@ -35,6 +36,36 @@ app.use(bodyParser.json());
 //
 // });
 
+app.post('/custommessage', (req,res) => {
+  var customMessage = new CustomMessage({
+    msgKey: req.body.msgKey,
+    msgString: req.body.msgString
+  })
+
+  customMessage.save().then((doc)=>{
+    res.send(doc);
+  }, (err)=>{
+    return res.status(400).send(err);
+  })
+});
+
+app.get('/custommessage', (req,res) => {
+  CustomMessage.find((err, doc) => {
+
+      if (err)
+      {
+        return res.status(400).send();
+      }
+
+      if (!doc)
+      {
+        return res.status(404).send();
+      }
+
+      res.send(doc);
+    });
+  }
+);
 
 
 app.post('/curatedcontent', (req,res) => {
@@ -99,6 +130,7 @@ app.get('/curatedcontent/:selection/:contentSubjectArea/2', (req,res) => {
   });
 });
 
+
 app.get('/curatedcontent/:learningStep/:contentSubjectAreaSubArea/3', (req,res) => {
 
   var pLearningStep = req.params.learningStep;
@@ -123,6 +155,22 @@ app.get('/curatedcontent/:learningStep/:contentSubjectAreaSubArea/3', (req,res) 
       res.send(doc);
   });
 });
+
+app.get('/curatedcontent/:contentSubjectArea/4', (req,res) => {
+
+  var pContentSubjectArea = req.params.contentSubjectArea;
+
+  CuratedContent.where({contentSubjectAreaSubArea: pContentSubjectArea}).count( (err, count) => {
+
+      if (err)
+      {
+        return res.status(400).send();
+      }
+
+      res.send({count});
+  });
+});
+
 
 app.get('/userdata/:userName/:contentSubjectAreaSubArea', (req,res) => {
 //app.get('/userdata', (req,res) => {
