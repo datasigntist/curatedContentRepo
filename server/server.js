@@ -12,6 +12,7 @@ var {FeedbackData} = require('./models/feedbackdata');
 var {PointsData} = require('./models/pointsdata');
 var {LogData} = require('./models/logdata');
 var {CustomMessage} = require('./models/custommessage');
+var {UserRegistry} = require('./models/userregistry');
 
 var app = express();
 
@@ -128,6 +129,39 @@ app.get('/curatedcontent/:selection/:contentSubjectArea/2', (req,res) => {
 
       res.send(doc);
   });
+});
+
+app.get('/userregistry/:pUserEmailAddress', (req,res) => {
+
+  var emailId = req.params.pUserEmailAddress;
+
+  UserRegistry.findOne({userName: emailId},
+    (err, doc) => {
+
+      if (err)
+      {
+        return res.status(400).send();
+      }
+
+      if (!doc)
+      {
+        return res.status(404).send();
+      }
+
+      res.send(doc);
+  });
+});
+
+app.post('/userregistry', (req,res) => {
+  var userRegistry = new UserRegistry({
+    userName: req.body.userName
+  })
+
+  userRegistry.save().then((doc)=>{
+    res.send(doc);
+  }, (err)=>{
+    return res.status(400).send(err);
+  })
 });
 
 
