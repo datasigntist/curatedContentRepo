@@ -11,6 +11,9 @@ var UserRegistry = mongoose.model('UserRegistry',{
     type: Boolean,
     default: true
   },
+  userAddress:{
+    type: Object
+  },
   recordedOn:{
     type: Date,
     default: Date.now

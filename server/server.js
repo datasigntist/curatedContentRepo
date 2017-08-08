@@ -154,7 +154,8 @@ app.get('/userregistry/:pUserEmailAddress', (req,res) => {
 
 app.post('/userregistry', (req,res) => {
   var userRegistry = new UserRegistry({
-    userName: req.body.userName
+    userName: req.body.userName,
+    userAddress: req.body.userAddress
   })
 
   userRegistry.save().then((doc)=>{
