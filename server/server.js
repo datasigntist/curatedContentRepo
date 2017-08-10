@@ -13,6 +13,9 @@ var {PointsData} = require('./models/pointsdata');
 var {LogData} = require('./models/logdata');
 var {CustomMessage} = require('./models/custommessage');
 var {UserRegistry} = require('./models/userregistry');
+var {UserQueries} = require('./models/userqueries');
+var {UserNotes} = require('./models/usernotes');
+var {FeedbackForContent} = require('./models/feedbackforcontent');
 
 var app = express();
 
@@ -36,6 +39,34 @@ app.use(bodyParser.json());
 //   });
 //
 // });
+
+app.post('/userqueries', (req,res) => {
+  var userQueries = new UserQueries({
+    userName: req.body.userName,
+    enrolledModule: req.body.enrolledModule,
+    userQueries: req.body.userQueries
+  })
+
+  userQueries.save().then((doc)=>{
+    res.send(doc);
+  }, (err)=>{
+    return res.status(400).send(err);
+  })
+});
+
+app.post('/usernotes', (req,res) => {
+  var userNotes = new UserNotes({
+    userName: req.body.userName,
+    enrolledModule: req.body.enrolledModule,
+    userNotes: req.body.userNotes
+  })
+
+  userNotes.save().then((doc)=>{
+    res.send(doc);
+  }, (err)=>{
+    return res.status(400).send(err);
+  })
+});
 
 app.post('/custommessage', (req,res) => {
   var customMessage = new CustomMessage({
@@ -252,6 +283,24 @@ app.post('/userdata', (req,res) => {
     return res.status(400).send(err);
   })
 });
+
+app.post('/feedbackforcontent', (req,res) => {
+
+  var feedbackForContent = new FeedbackForContent({
+    userName: req.body.userName,
+    feedbackModule: req.body.feedbackModule,
+    feedbackOnContent: req.body.feedbackOnContent
+  });
+
+  //console.log(JSON.stringify(feedbackData));
+
+  feedbackForContent.save().then((doc)=>{
+    res.send(doc);
+  }, (err)=>{
+    return res.status(400).send(err);
+  })
+});
+
 
 app.post('/feedbackdata', (req,res) => {
 
