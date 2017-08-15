@@ -3,7 +3,6 @@ const _ = require('lodash');
 const {ObjectID} = require('mongodb');
 const jwt = require('jsonwebtoken');
 
-const code = 'VaradaHeyrambPavanTheGreatSwaminathanTheGenius28Jul20040839AM';
 
 var express = require('express');
 var bodyParser = require('body-parser');
